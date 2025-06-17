@@ -9,7 +9,7 @@ service AuthService {
 
 message RegisterRequest {
   string login = 1;
-  string password = 1;
+  string password = 2;
 }
 
 message RegisterResponse {
