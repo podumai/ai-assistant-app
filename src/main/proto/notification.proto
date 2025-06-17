@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+service NotificationService {
+  rpc IsNotifying(NotificationRequest) returns (NotificationResponse);
+  rpc CreateNotification(CreateNotificationRequest) returns (CreateNotificationResponse);
+}
+
+message NotificationRequest {
+  string user_id = 1;
+}
+
+message CreateNotificationRequest {
+  string user_id = 1;
+  string name = 2;
+  string description = 3;
+  float longitude = 4;
+  float latitude = 5;
+  uint64 datetime = 6;
+}
+
+message Notification {
+  string user_id = 1;
+  string name = 2;
+  string description = 3;
+  float longitude = 4;
+  float latitude = 5;
+  uint64 datetime = 6;
+  bool is_relevant = 7;
+}
+
+message NotificationResponse {
+  repeated Notification notification = 1;
+}
+
+message CreateNotificationResponse {
+  bool is_time = 1;
+}
