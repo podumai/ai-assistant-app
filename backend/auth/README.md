@@ -2,6 +2,8 @@
 
 ## Build
 
+### Environment
+
 > [!NOTE]  
 > SERVICE_PORT environment variable not supported now (for REST).  
 
@@ -28,4 +30,31 @@ POSTGRES_PORT=5432
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=<postgres_password>
 POSTGRES_DB=users
+```
+
+### Service configuration
+
+> [!NOTE]  
+> certificates-path key not supported now (SSL/TLS).  
+
+Example `conf.yaml` file:  
+
+```yaml
+env: debug
+grpc:
+  port: <grpc_port>
+  certificates-path: null
+token-storage:
+  address: token-storage
+  port: 6379
+  username: backend
+  password: <token_storage_password>
+  db: 0
+  protocol: 2
+user-storage:
+  db: users
+  host: user-storage
+  port: 5432
+  user: backend
+  password: <backend_user_password>
 ```
