@@ -1,0 +1,33 @@
+include:
+  - scripts/token_storage.yaml
+  - scripts/postgres/user_storage.yaml
+
+services:
+  auth-service:
+    container_name: auth_service
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ALPINE_IMAGE_VERSION: ${ALPINE_IMAGE_VERSION}
+        SERVICE_PORT: ${SERVICE_PORT}
+        GRPC_PORT: ${GRPC_PORT}
+    environment:
+      SERVICE_PORT: ${SERVICE_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      CONFIG_PATH: ${CONFIG_PATH}
+    ports:
+      - ${SERVICE_PORT}:${SERVICE_PORT}
+      - ${GRPC_PORT}:${GRPC_PORT}
+    networks:
+      - auth-network
+    depends_on:
+      token-storage:
+        condition: service_healthy
+      user-storage:
+        condition: service_healthy
+
+networks:
+  auth-network:
+    name: auth_network
+    driver: bridge
